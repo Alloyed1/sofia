@@ -10,8 +10,8 @@ using sofia.Models;
 namespace sofia.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190907144745_dfghfsdghr")]
-    partial class dfghfsdghr
+    [Migration("20190908190930_dfgdgfd")]
+    partial class dfgdgfd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,6 +154,8 @@ namespace sofia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("About");
+
                     b.Property<string>("Adress");
 
                     b.Property<int>("AllCountRoom");
@@ -188,7 +190,9 @@ namespace sofia.Migrations
 
                     b.Property<double>("PloshadRoom");
 
-                    b.Property<bool>("Predoplata");
+                    b.Property<string>("Predoplata");
+
+                    b.Property<int>("Price");
 
                     b.Property<string>("Remont");
 

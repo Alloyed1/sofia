@@ -14,7 +14,9 @@ namespace sofia.Models
 		public int Id { get; set; }
 		public int TypeSdelki { get; set; }
 		public int TypeArenda { get; set; }
-		public int TypeCommerce { get; set; }
+        public string About { get; set; }
+        public int Price { get; set; }
+        public int TypeCommerce { get; set; }
 		public string ObjectText { get; set; }
 		public string Adress { get; set; }
 		public string Coords { get; set; }
@@ -40,7 +42,7 @@ namespace sofia.Models
 
 		public string Name { get; set; }
 		public bool Communal { get; set; }
-		public bool Predoplata { get; set; }
+		public string Predoplata { get; set; }
 		public int Zalog { get; set; }
 		public string Sostav { get; set; }
 

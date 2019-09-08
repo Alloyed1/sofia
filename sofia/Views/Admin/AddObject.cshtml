@@ -5,129 +5,221 @@
 <script src="https://api-maps.yandex.ru/2.1/?apikey=e439331b-cf6a-4f7b-ace5-8d16e2af975e&lang=ru_RU" type="text/javascript"></script>
 
 <h1 class="text-center">Добавление товара</h1>
-<form method="post" asp-action="AddObject" asp-controller="Admin">
-	<div class="container">
-		<div class="form-group mt-3">
-			<h4>Тип сделки</h4>
-			<select class="form-control" asp-for="TypeSdelki">
-				<option></option>
-				<option>Аренда</option>
-				<option>Продажа</option>
-			</select>
-		</div>
-		<div class="form-group mt-4">
-			<h4>Тип аренды</h4>
-			<select class="form-control" asp-for="TypeArenda">
-				<option></option>
-				<option>Длительно</option>
-				<option>Несколько месяцев</option>
-				<option>Посуточно</option>
-			</select>
-		</div>
-		<div class="form-group mt-4">
-			<h4>Тип недвижимости</h4>
-			<select class="form-control" asp-for="TypeCommerce">
-				<option></option>
-				<option>Жилая</option>
-				<option>Коммерческая</option>
-			</select>
-		</div>
-		<div class="form-group mt-4">
-			<h4>Объект</h4>
-			<select class="form-control" asp-for="ObjectText">
-				<option></option>
-				<option>Квартира</option>
-				<option>Команата</option>
-			</select>
-		</div>
-		=
-		<div class="form-group mt-4">
-			<h4>Комнат в аренду</h4>
-			<select class="form-control" asp-for="Comnat">
-				<option></option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				<option>5</option>
-				<option>6</option>
-				<option>7</option>
-			</select>
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Площадь комнаты м2</h4>
-			<input type="text" value="" class="form-control" asp-for="PloshadRoom" />
-		</div>
-		<h4>Общая площадь м2</h4>
-		<div class="form-group mt-4 d-flex">
+<form method="post" asp-action="AddObject" asp-controller="Admin" id="form_adm">
+    <div class="container">
+        <div class="form-group mt-3">
+            <h4>Тип сделки</h4>
+            <select class="form-control" asp-for="TypeSdelki">
+                <option></option>
+                <option>Аренда</option>
+                <option>Продажа</option>
+            </select>
+        </div>
+        <div class="form-group mt-4">
+            <h4>Тип аренды</h4>
+            <select class="form-control" asp-for="TypeArenda">
+                <option></option>
+                <option>Длительно</option>
+                <option>Несколько месяцев</option>
+                <option>Посуточно</option>
+            </select>
+        </div>
+        <div class="form-group mt-4">
+            <h4>Тип недвижимости</h4>
+            <select class="form-control" asp-for="TypeCommerce">
+                <option></option>
+                <option>Жилая</option>
+                <option>Коммерческая</option>
+            </select>
+        </div>
+        <div class="form-group mt-4">
+            <h4>Объект</h4>
+            <select class="form-control" asp-for="ObjectText">
+                <option></option>
+                <option>Квартира</option>
+                <option>Команата</option>
+            </select>
+        </div>
+        =
+        <div class="form-group mt-4">
+            <h4>Комнат в аренду</h4>
+            <select class="form-control" asp-for="Comnat">
+                <option></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Площадь комнаты м2</h4>
+            <input type="text" value="" class="form-control" asp-for="PloshadRoom" />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Общая площадь м2</h4>
+            <input type="text" value="" class="form-control" asp-for="AllPloshadRoom" />
+        </div>
 
-			<input type="text" value="" class="form-control" asp-for="Etag" />
-			<p> из </p>
-			<input type="text" value="" class="form-control" asp-for="EtagAll" />
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Площадь кухни м2</h4>
-			<input type="text" value="" class="form-control" asp-for="Kuxnya" />
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Балконов</h4>
-			<select class="form-control" asp-for="Balkon">
-				<option></option>
-				<option>Нет</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-			</select>
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Раздельные санузлы</h4>
-			<select class="form-control" asp-for="SanUzelRazdel">
-				<option></option>
-				<option>Нет</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-			</select>
+        <div class="form-group mt-4 d-flex">
+            <h4>Этаж</h4>
+            <input type="text" value="" class="form-control" asp-for="Etag" />
+            <p> из </p>
+            <input type="text" value="" class="form-control" asp-for="EtagAll" />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Площадь кухни м2</h4>
+            <input type="text" value="" class="form-control" asp-for="Kuxnya" />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Балконов</h4>
+            <select class="form-control" asp-for="Balkon">
+                <option></option>
+                <option>Нет</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Раздельные санузлы</h4>
+            <select class="form-control" asp-for="SanUzelRazdel">
+                <option></option>
+                <option>Нет</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
 
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Совмещенные санузлы</h4>
-			<select class="form-control" asp-for="SanUzelVmeste">
-				<option></option>
-				<option>Нет</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-			</select>
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Ремонт</h4>
-			<select class="form-control" asp-for="Remont">
-				<option></option>
-				<option>Косметический</option>
-				<option>Евро</option>
-				<option>Дизайнерский</option>
-				<option>Без ремонта</option>
-			</select>
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Можно с животными</h4>
-			<select class="form-control" asp-for="Animals">
-				<option></option>
-				<option>Нет</option>
-				<option>Да</option>
-			</select>
-		</div>
-		<div class="form-group mt-4 pb-4">
-			<h4>Можно с детьми</h4>
-			<select class="form-control" asp-for="Children">
-				<option></option>
-				<option>Нет</option>
-				<option>Да</option>
-			</select>
-		</div>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Совмещенные санузлы</h4>
+            <select class="form-control" asp-for="SanUzelVmeste">
+                <option></option>
+                <option>Нет</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Ремонт</h4>
+            <select class="form-control" asp-for="Remont">
+                <option></option>
+                <option>Косметический</option>
+                <option>Евро</option>
+                <option>Дизайнерский</option>
+                <option>Без ремонта</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Можно с животными</h4>
+            <select class="form-control" asp-for="Animals">
+                <option></option>
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Можно с детьми</h4>
+            <select class="form-control" asp-for="Children">
+                <option></option>
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Дополнительно</h4>
+            <input id="1" type="checkbox" v-model="dop" value="Мебель в комнатах" />
+            <label for="1">Мебель в комнатах</label><br />
 
-	</div>
+            <input id="2" type="checkbox" v-model="dop" value="Мебель на кухне" />
+            <label for="2">Мебель на кухне</label><br />
+
+            <input id="3" type="checkbox" v-model="dop" value="Окна во двор" />
+            <label for="3">Окна во двор</label><br />
+
+            <input id="4" type="checkbox" v-model="dop" value="Окна на улицу" />
+            <label for="4">Окна на улицу</label><br />
+
+            <input id="5" type="checkbox" v-model="dop" value="Балкон" />
+            <label for="5">Балкон</label><br />
+
+            <input id="6" type="checkbox" v-model="dop" value="Холодильник" />
+            <label for="6">Холодильник</label><br />
+
+            <input id="7" type="checkbox" v-model="dop" value="Посудомоечная машина" />
+            <label for="7">Посудомоечная машина</label><br />
+
+            <input id="8" type="checkbox" v-model="dop" value="Стиральная машина" />
+            <label for="8">Стиральная машина</label><br />
+
+            <input id="9" type="checkbox" v-model="dop" value="Телевизор" />
+            <label for="9">Телевизор</label><br />
+
+            <input id="10" type="checkbox" v-model="dop" value="Ванна" />
+            <label for="10">Ванна</label><br />
+
+            <input id="11" type="checkbox" v-model="dop" value="Душевая кабина" />
+            <label for="11">Душевая кабина</label><br />
+
+            <input id="12" type="checkbox" v-model="dop" value="Кондиционер" />
+            <label for="12">Кондиционер</label><br />
+
+            <input id="13" type="checkbox" v-model="dop" value="Инернет" />
+            <label for="13">Интернет</label><br />
+
+            <input v-for="it in dop" type="text" asp-for="Dop" :value="it" hidden />
+
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Заголовок</h4>
+            <input type="text" name="name" asp-for="Name" value="" />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Описание</h4>
+            <textarea asp-for="About"></textarea>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Цена</h4>
+            <input type="text" name="name" asp-for="Price" value="" />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Коммунальные платежи</h4>
+            <select class="form-control" asp-for="Communal">
+                <option></option>
+                <option>Включены</option>
+                <option>Не включены</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Предоплата</h4>
+            <select class="form-control" asp-for="Predoplata">
+                <option></option>
+                <option>1 месяц</option>
+                <option>2 месяца</option>
+                <option>3 месяца</option>
+                <option>4 месяца</option>
+            </select>
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Залог</h4>
+            <input   asp-for="Zalog"  />
+        </div>
+        <div class="form-group mt-4 pb-4">
+            <h4>Cостав семьи</h4>
+            <select class="form-control" asp-for="Sostav">
+                <option></option>
+                <option>Любой</option>
+                <option>Семья</option>
+                <option>Мужчина</option>
+                <option>Женщина</option>
+            </select>
+        </div>
+
+    </div>
 	<div id="map"></div>
 	<input id="coords" value="" hidden asp-for="Coords" />
 	<input id="adress" value="" hidden asp-for="Adress" />
@@ -135,7 +227,19 @@
 </form>
 
 @section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript">
+        var vue = new Vue({
+            el: '#form_adm',
+            data: {
+                dop: []
+            },
+            whatch: {
+                dop: function () {
+                    console.log(vue.dop);
+                }
+            }
+        });
 		// Функция ymaps.ready() будет вызвана, когда
 		// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
 		ymaps.ready(init);

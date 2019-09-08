@@ -10,8 +10,8 @@ using sofia.Models;
 namespace sofia.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190906190819_fdghfghf")]
-    partial class fdghfghf
+    [Migration("20190908190548_dfdsfg")]
+    partial class dfdsfg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,6 +154,8 @@ namespace sofia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("About");
+
                     b.Property<string>("Adress");
 
                     b.Property<int>("AllCountRoom");
@@ -166,13 +168,21 @@ namespace sofia.Migrations
 
                     b.Property<bool>("Children");
 
+                    b.Property<bool>("Communal");
+
                     b.Property<int>("Comnat");
 
                     b.Property<string>("Coords");
 
+                    b.Property<int>("Etag");
+
+                    b.Property<int>("EtagAll");
+
                     b.Property<double>("HeightPotolok");
 
                     b.Property<double>("Kuxnya");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("ObjectText");
 
@@ -180,11 +190,15 @@ namespace sofia.Migrations
 
                     b.Property<double>("PloshadRoom");
 
+                    b.Property<bool>("Predoplata");
+
                     b.Property<string>("Remont");
 
                     b.Property<string>("SanUzelRazdel");
 
                     b.Property<string>("SanUzelVmeste");
+
+                    b.Property<string>("Sostav");
 
                     b.Property<int>("TypeArenda");
 
@@ -193,6 +207,8 @@ namespace sofia.Migrations
                     b.Property<int>("TypeSdelki");
 
                     b.Property<string>("Year");
+
+                    b.Property<int>("Zalog");
 
                     b.Property<string>("ZdanieName");
 

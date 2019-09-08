@@ -10,8 +10,8 @@ using sofia.Models;
 namespace sofia.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190906182804_second")]
-    partial class second
+    [Migration("20190908183515_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,90 @@ namespace sofia.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("sofia.Models.Dop", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HomeId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.ToTable("Dops");
+                });
+
+            modelBuilder.Entity("sofia.Models.Home", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress");
+
+                    b.Property<int>("AllCountRoom");
+
+                    b.Property<double>("AllPloshadRoom");
+
+                    b.Property<bool>("Animals");
+
+                    b.Property<string>("Balkon");
+
+                    b.Property<bool>("Children");
+
+                    b.Property<bool>("Communal");
+
+                    b.Property<int>("Comnat");
+
+                    b.Property<string>("Coords");
+
+                    b.Property<int>("Etag");
+
+                    b.Property<int>("EtagAll");
+
+                    b.Property<double>("HeightPotolok");
+
+                    b.Property<double>("Kuxnya");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("ObjectText");
+
+                    b.Property<string>("Parkovka");
+
+                    b.Property<double>("PloshadRoom");
+
+                    b.Property<bool>("Predoplata");
+
+                    b.Property<string>("Remont");
+
+                    b.Property<string>("SanUzelRazdel");
+
+                    b.Property<string>("SanUzelVmeste");
+
+                    b.Property<string>("Sostav");
+
+                    b.Property<int>("TypeArenda");
+
+                    b.Property<int>("TypeCommerce");
+
+                    b.Property<int>("TypeSdelki");
+
+                    b.Property<string>("Year");
+
+                    b.Property<int>("Zalog");
+
+                    b.Property<string>("ZdanieName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Homes");
+                });
+
             modelBuilder.Entity("sofia.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -224,6 +308,14 @@ namespace sofia.Migrations
                     b.HasOne("sofia.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("sofia.Models.Dop", b =>
+                {
+                    b.HasOne("sofia.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

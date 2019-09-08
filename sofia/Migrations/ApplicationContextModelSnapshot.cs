@@ -152,6 +152,8 @@ namespace sofia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("About");
+
                     b.Property<string>("Adress");
 
                     b.Property<int>("AllCountRoom");
@@ -186,7 +188,9 @@ namespace sofia.Migrations
 
                     b.Property<double>("PloshadRoom");
 
-                    b.Property<bool>("Predoplata");
+                    b.Property<string>("Predoplata");
+
+                    b.Property<int>("Price");
 
                     b.Property<string>("Remont");
 

@@ -32,11 +32,13 @@ namespace sofia.ViewModels
 		public string Year { get; set; }
 		public double HeightPotolok { get; set; }
 		public string Parkovka { get; set; }
+        public string About { get; set; }
+        public int Price { get; set; }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
 		public bool Communal { get; set; }
-		public bool Predoplata { get; set; }
-		public int Zalog { get; set; }
+        public string Predoplata { get; set; }
+        public int Zalog { get; set; }
 		public string Sostav { get; set; }
 
 		public List<string> Dop { get; set; }
