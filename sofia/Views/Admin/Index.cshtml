@@ -1,0 +1,58 @@
+﻿
+@{
+	ViewData["Title"] = "Index";
+}
+
+<div id="admin_main">
+	<form method="post" asp-controller="Admin" asp-action="Index">
+		<div class="log">
+			<div class="container">
+				<div class="form-group">
+					<input type="text" name="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Логин">
+				</div>
+				<div class="form-group">
+					<input type="password" name="Password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+				</div>
+				<button type="submit" class="btn btn-primary mx-auto">Войти</button>
+			</div>
+		</div>
+	</form>
+</div>
+@section Scripts{
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		var main = new Vue({
+			el: '#admin_main',
+			data: {
+				password: '',
+				login: '',
+			},
+			mounted() {
+
+			},
+			methods: {
+				checkPassword: function () {
+					$.ajax({
+						type: 'GET',
+						url: '/Admin/CheckPassword',
+						data: {
+							Password: main.password,
+							Login: main.login
+						},
+						success: function (res) {
+							if (res == true) {
+								main.isAuth = true;
+							}
+							else {
+								location.reload();
+							}
+						}
+					});
+				}
+			}
+		});
+	</script>
+}
+
+
+

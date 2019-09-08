@@ -1,0 +1,218 @@
+﻿@model sofia.ViewModels.AddHomeViewModel;
+@{
+	ViewData["Title"] = "AddObject";
+}
+<script src="https://api-maps.yandex.ru/2.1/?apikey=e439331b-cf6a-4f7b-ace5-8d16e2af975e&lang=ru_RU" type="text/javascript"></script>
+
+<h1 class="text-center">Добавление товара</h1>
+<form method="post" asp-action="AddObject" asp-controller="Admin">
+	<div class="container">
+		<div class="form-group mt-3">
+			<h4>Тип сделки</h4>
+			<select class="form-control" asp-for="TypeSdelki">
+				<option></option>
+				<option>Аренда</option>
+				<option>Продажа</option>
+			</select>
+		</div>
+		<div class="form-group mt-4">
+			<h4>Тип аренды</h4>
+			<select class="form-control" asp-for="TypeArenda">
+				<option></option>
+				<option>Длительно</option>
+				<option>Несколько месяцев</option>
+				<option>Посуточно</option>
+			</select>
+		</div>
+		<div class="form-group mt-4">
+			<h4>Тип недвижимости</h4>
+			<select class="form-control" asp-for="TypeCommerce">
+				<option></option>
+				<option>Жилая</option>
+				<option>Коммерческая</option>
+			</select>
+		</div>
+		<div class="form-group mt-4">
+			<h4>Объект</h4>
+			<select class="form-control" asp-for="ObjectText">
+				<option></option>
+				<option>Квартира</option>
+				<option>Команата</option>
+			</select>
+		</div>
+		=
+		<div class="form-group mt-4">
+			<h4>Комнат в аренду</h4>
+			<select class="form-control" asp-for="Comnat">
+				<option></option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+			</select>
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Площадь комнаты м2</h4>
+			<input type="text" value="" class="form-control" asp-for="PloshadRoom" />
+		</div>
+		<h4>Общая площадь м2</h4>
+		<div class="form-group mt-4 d-flex">
+
+			<input type="text" value="" class="form-control" asp-for="Etag" />
+			<p> из </p>
+			<input type="text" value="" class="form-control" asp-for="EtagAll" />
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Площадь кухни м2</h4>
+			<input type="text" value="" class="form-control" asp-for="Kuxnya" />
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Балконов</h4>
+			<select class="form-control" asp-for="Balkon">
+				<option></option>
+				<option>Нет</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Раздельные санузлы</h4>
+			<select class="form-control" asp-for="SanUzelRazdel">
+				<option></option>
+				<option>Нет</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Совмещенные санузлы</h4>
+			<select class="form-control" asp-for="SanUzelVmeste">
+				<option></option>
+				<option>Нет</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Ремонт</h4>
+			<select class="form-control" asp-for="Remont">
+				<option></option>
+				<option>Косметический</option>
+				<option>Евро</option>
+				<option>Дизайнерский</option>
+				<option>Без ремонта</option>
+			</select>
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Можно с животными</h4>
+			<select class="form-control" asp-for="Animals">
+				<option></option>
+				<option>Нет</option>
+				<option>Да</option>
+			</select>
+		</div>
+		<div class="form-group mt-4 pb-4">
+			<h4>Можно с детьми</h4>
+			<select class="form-control" asp-for="Children">
+				<option></option>
+				<option>Нет</option>
+				<option>Да</option>
+			</select>
+		</div>
+
+	</div>
+	<div id="map"></div>
+	<input id="coords" value="" hidden asp-for="Coords" />
+	<input id="adress" value="" hidden asp-for="Adress" />
+	<button type="submit">Отрпваить</button>
+</form>
+
+@section Scripts{
+	<script type="text/javascript">
+		// Функция ymaps.ready() будет вызвана, когда
+		// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+		ymaps.ready(init);
+		function init() {
+
+			$('#map').width($(window).width());
+			$('#map').height($(window).height());
+			$(window).resize(function(){
+				$('#map').width($(window).width());
+    			$('#map').height($(window).height());
+			});
+			// Создание карты.
+			var myPlacemark,
+			myMap = new ymaps.Map('map', {
+				center: [55.753994, 37.622093],
+				zoom: 9
+			}, {
+				searchControlProvider: 'yandex#search'
+			});
+			myMap.events.add('click', function (e) {
+        var coords = e.get('coords');
+
+        // Если метка уже создана – просто передвигаем ее.
+        if (myPlacemark) {
+            myPlacemark.geometry.setCoordinates(coords);
+        }
+        // Если нет – создаем.
+        else {
+            myPlacemark = createPlacemark(coords);
+            myMap.geoObjects.add(myPlacemark);
+            // Слушаем событие окончания перетаскивания на метке.
+            myPlacemark.events.add('dragend', function () {
+                getAddress(myPlacemark.geometry.getCoordinates());
+            });
+        }
+        getAddress(coords);
+    });
+
+    // Создание метки.
+    function createPlacemark(coords) {
+        return new ymaps.Placemark(coords, {
+            iconCaption: 'поиск...'
+        }, {
+            preset: 'islands#violetDotIconWithCaption',
+            draggable: true
+        });
+    }
+
+    // Определяем адрес по координатам (обратное геокодирование).
+    function getAddress(coords) {
+        myPlacemark.properties.set('iconCaption', 'поиск...');
+        ymaps.geocode(coords).then(function (res) {
+			var firstGeoObject = res.geoObjects.get(0);
+			console.log(coords);
+			$('#coords').val(coords);
+			$('#adress').val(firstGeoObject.getAddressLine());
+
+
+            myPlacemark.properties
+                .set({
+                    // Формируем строку с данными об объекте.
+                    iconCaption: [
+                        // Название населенного пункта или вышестоящее административно-территориальное образование.
+                        firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                        // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                        firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                    ].filter(Boolean).join(', '),
+                    // В качестве контента балуна задаем строку с адресом объекта.
+                    balloonContent: firstGeoObject.getAddressLine()
+                });
+        });
+    }
+		}
+
+	</script>
+}
+
+
+
+
