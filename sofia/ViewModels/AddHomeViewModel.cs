@@ -7,9 +7,9 @@ namespace sofia.ViewModels
 {
 	public class AddHomeViewModel
 	{
-		public int TypeSdelki { get; set; }
-		public int TypeArenda { get; set; }
-		public int TypeCommerce { get; set; }
+		public string TypeSdelki { get; set; }
+		public string TypeArenda { get; set; }
+		public string TypeCommerce { get; set; }
 		public string ObjectText { get; set; }
 		public string Adress { get; set; }
 		public string Coords { get; set; }
@@ -25,8 +25,8 @@ namespace sofia.ViewModels
 		public string SanUzelRazdel { get; set; }
 		public string SanUzelVmeste { get; set; }
 		public string Remont { get; set; }
-		public bool Animals { get; set; }
-		public bool Children { get; set; }
+		public string Animals { get; set; }
+		public string Children { get; set; }
 
 		public string ZdanieName { get; set; }
 		public string Year { get; set; }
@@ -36,7 +36,7 @@ namespace sofia.ViewModels
         public int Price { get; set; }
 
         public string Name { get; set; }
-		public bool Communal { get; set; }
+		public string Communal { get; set; }
         public string Predoplata { get; set; }
         public int Zalog { get; set; }
 		public string Sostav { get; set; }

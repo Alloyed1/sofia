@@ -23,6 +23,7 @@ namespace sofia.Models
 		}
 		public DbSet<Home> Homes { get; set; }
 		public DbSet<Dop> Dops { get; set; }
+        public DbSet<Photos> Photos { get; set; }
 
 	}
 }

@@ -1,9 +1,28 @@
-﻿
+﻿@model IEnumerable<sofia.ViewModels.AdminViewModel>
 @{
     ViewData["Title"] = "Panel";
 }
 
 	<div class="container">
 		<a class="btn btn-success text-center" asp-action="AddObject" asp-controller="Admin">Добавить объект</a>
+        <div class="row mt-5">
+            @foreach(var item in Model)
+            {
+            <div class="col-5 col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top img-fluid" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Photo))" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.about</p>
+                        <h4 class="text-right pb-4">@item.Price рублей</h4>
+                        <a href="#" class="btn btn-primary">Подробнее</a>
+                        <a href="#" class="btn btn-danger">Удалить</a>
+                    </div>
+                </div>
+            </div>
+            }
+            
+        </div>
 	</div>
+    
 

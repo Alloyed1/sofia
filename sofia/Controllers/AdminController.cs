@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sofia.Models;
@@ -59,15 +61,77 @@ namespace sofia.Controllers
 			return View();
 		}
 		[HttpPost]
-		public IActionResult AddObject(AddHomeViewModel mode)
+		public async Task<IActionResult> AddObject(AddHomeViewModel mode, IFormFileCollection files)
 		{
+            Home home = new Home
+            {
+                About = mode.About,
+                Adress = mode.Adress,
+                TypeSdelki = mode.TypeSdelki,
+                Coords = mode.Coords,
+                AllCountRoom = mode.AllCountRoom,
+                AllPloshadRoom = mode.AllPloshadRoom,
+                Animals = mode.Animals,
+                Balkon = mode.Balkon,
+                Children = mode.Children,
+                Communal = mode.Communal,
+                Comnat = mode.Comnat,
+                Etag = mode.Etag,
+                EtagAll = mode.EtagAll,
+                Kuxnya = mode.Kuxnya,
+                ObjectText = mode.ObjectText,
+                Name = mode.Name,
+                Price = mode.Price,
+                PloshadRoom = mode.PloshadRoom,
+                Predoplata = mode.Predoplata,
+                Sostav = mode.Sostav,
+                Parkovka = mode.Parkovka,
+                Remont = mode.Remont,
+                SanUzelRazdel = mode.SanUzelRazdel,
+                SanUzelVmeste = mode.SanUzelVmeste,
+                TypeArenda = mode.TypeArenda,
+                TypeCommerce = mode.TypeCommerce,
+                Zalog = mode.Zalog
+            };
+            var result =  await _context.AddAsync(home);
+            foreach (string text in mode.Dop)
+            {
+                await _context.AddAsync(new Dop {HomeId = result.Entity.Id, Text = text });
+            }
+            foreach (var uploadedFile in files)
+            {
+                Photos photos = new Photos();
+                using (var memoryStream = new MemoryStream())
+                {
+                    await uploadedFile.CopyToAsync(memoryStream);
+                    photos.Photo = memoryStream.ToArray();
+                }
+                photos.HomeId = result.Entity.Id;
+                await _context.AddAsync(photos);
+            }
+
+            await _context.AddAsync(home);
+            await _context.SaveChangesAsync();
 			return RedirectToAction("Panel", "Admin");
 		}
 		[HttpGet]
 		[Authorize]
-		public IActionResult Panel()
+		public async Task<IActionResult> Panel()
 		{
-			return View();
+            var model = new List<AdminViewModel>();
+            var items = _context.Homes.ToList();
+
+            foreach(var item in items)
+            {
+                var mod = new AdminViewModel();
+                mod.about = item.About;
+                mod.Id = item.Id;
+                mod.Name = item.Name;
+                mod.Price = item.Price;
+                mod.Photo =  _context.Photos.Where(w => w.HomeId == item.Id).Select(s => s.Photo).First();
+                model.Add(mod);
+            }
+			return View(model);
 		}
 	}
 }
