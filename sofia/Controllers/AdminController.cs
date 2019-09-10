@@ -34,6 +34,7 @@ namespace sofia.Controllers
 			}
 			return View();
 		}
+        
 		[HttpPost]
 		public async Task<IActionResult> Index(string Password, string Name)
 		{
@@ -94,10 +95,14 @@ namespace sofia.Controllers
                 Zalog = mode.Zalog
             };
             var result =  await _context.AddAsync(home);
-            foreach (string text in mode.Dop)
+            if(mode.Dop != null)
             {
-                await _context.AddAsync(new Dop {HomeId = result.Entity.Id, Text = text });
+                foreach (string text in mode.Dop)
+                {
+                    await _context.AddAsync(new Dop { HomeId = result.Entity.Id, Text = text });
+                }
             }
+            
             foreach (var uploadedFile in files)
             {
                 Photos photos = new Photos();

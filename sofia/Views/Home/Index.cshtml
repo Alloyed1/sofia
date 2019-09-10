@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<sofia.ViewModels.AdminViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,7 +12,11 @@
 	<script type="text/javascript">
 		// Функция ymaps.ready() будет вызвана, когда
 		// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-		ymaps.ready(init);
+
+        let array = @Html.Raw(Json.Serialize(Model));
+        console.log(array);
+
+        ymaps.ready(init);
 		function init() {
 
 			$('#map').width($(window).width());
@@ -23,29 +28,21 @@
 			// Создание карты.
 			var myPlacemark,
 			myMap = new ymaps.Map('map', {
-				center: [55.753994, 37.622093],
-				zoom: 9
+				center: [55.64641406974802,37.50272540389724],
+				zoom: 11
 			}, {
 				searchControlProvider: 'yandex#search'
-			});
-			myMap.events.add('click', function (e) {
-        var coords = e.get('coords');
-
-        // Если метка уже создана – просто передвигаем ее.
-        if (myPlacemark) {
-            myPlacemark.geometry.setCoordinates(coords);
-        }
-        // Если нет – создаем.
-        else {
-            myPlacemark = createPlacemark(coords);
-            myMap.geoObjects.add(myPlacemark);
-            // Слушаем событие окончания перетаскивания на метке.
-            myPlacemark.events.add('dragend', function () {
-                getAddress(myPlacemark.geometry.getCoordinates());
+                });
+            array.forEach(el => {
+                let mas = el.coords.split(',');
+                let placemark = new ymaps.Placemark([mas[0], mas[1]], {
+                    balloonContent: '<img class="card-img-top img-fluid" src="data:image/jpeg;base64,'+ el.photo.toString() +'" /><h4>'+ el.name +'<h4><hr><p>'+ el.about +'</p><h4 class="text-right text-success">'+ el.price +'руб</h4><a href="/Home/Info?id='+el.id+'" class="btn btn-info">Подробнее</a>'
+                });
+                myMap.geoObjects.add(placemark);
             });
-        }
-        getAddress(coords);
-    });
+            
+
+		
 
     // Создание метки.
     function createPlacemark(coords) {
