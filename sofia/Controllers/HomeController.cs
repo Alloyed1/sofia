@@ -28,7 +28,7 @@ namespace sofia.Controllers
                 mod.Id = item.Id;
                 mod.Name = item.Name;
                 mod.Price = item.Price;
-                mod.Photo = _context.Photos.Where(w => w.HomeId == item.Id).Select(s => s.Photo).First();
+                mod.Photo = _context.Photos.Where(w => w.HomeId == item.Id).Select(s => s.Photo).FirstOrDefault();
                 mod.Coords = item.Coords;
                 model.Add(mod);
             }

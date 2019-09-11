@@ -102,18 +102,21 @@ namespace sofia.Controllers
                     await _context.AddAsync(new Dop { HomeId = result.Entity.Id, Text = text });
                 }
             }
-            
-            foreach (var uploadedFile in files)
+            if(files.Count() != 0)
             {
-                Photos photos = new Photos();
-                using (var memoryStream = new MemoryStream())
+                foreach (var uploadedFile in files)
                 {
-                    await uploadedFile.CopyToAsync(memoryStream);
-                    photos.Photo = memoryStream.ToArray();
+                    Photos photos = new Photos();
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await uploadedFile.CopyToAsync(memoryStream);
+                        photos.Photo = memoryStream.ToArray();
+                    }
+                    photos.HomeId = result.Entity.Id;
+                    await _context.AddAsync(photos);
                 }
-                photos.HomeId = result.Entity.Id;
-                await _context.AddAsync(photos);
             }
+            
 
             await _context.AddAsync(home);
             await _context.SaveChangesAsync();
@@ -133,7 +136,7 @@ namespace sofia.Controllers
                 mod.Id = item.Id;
                 mod.Name = item.Name;
                 mod.Price = item.Price;
-                mod.Photo =  _context.Photos.Where(w => w.HomeId == item.Id).Select(s => s.Photo).First();
+                mod.Photo =  _context.Photos.Where(w => w.HomeId == item.Id).Select(s => s.Photo).FirstOrDefault();
                 model.Add(mod);
             }
 			return View(model);

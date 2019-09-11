@@ -36,7 +36,7 @@
             array.forEach(el => {
                 let mas = el.coords.split(',');
                 let placemark = new ymaps.Placemark([mas[0], mas[1]], {
-                    balloonContent: '<img class="card-img-top img-fluid" src="data:image/jpeg;base64,'+ el.photo.toString() +'" /><h4>'+ el.name +'<h4><hr><p>'+ el.about +'</p><h4 class="text-right text-success">'+ el.price +'руб</h4><a href="/Home/Info?id='+el.id+'" class="btn btn-info">Подробнее</a>'
+                    balloonContent: '<img class="card-img-top img-fluid" src="data:image/jpeg;base64,'+ el.photo.toString() +'" /><h4>'+ el.name +'<h4><hr><p>'+ el.about +'</p><h4 class="text-right text-success">'+ el.price +'руб</h4><a href="/Home/Info?id='+el.id+'" target="_blank" class="btn btn-info">Подробнее</a>'
                 });
                 myMap.geoObjects.add(placemark);
             });
